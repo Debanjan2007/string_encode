@@ -29,9 +29,12 @@ def encode(str) :
 
 # decode programe
 def decode(str) :
-    strSplitLIst = [x for x in str.split(salt) if x]  # removes empty elements
+    strSplitLIst = str.split(salt) # removes empty elements
     asciiVals = [] 
     finalStrList = []
+    for elm in strSplitLIst:
+        if elm == salt :
+           strSplitLIst.pop(elm)
     strSplitLIst.reverse()
     for newElm in strSplitLIst:
         ascival = ord(newElm)
