@@ -1,10 +1,9 @@
 salt = "A9fQm2Xb" #random 8 bit text generated
-bad_codes = list(range(0, 32)) + [127]
 
 # encode programe
 def encode(str) : 
     str.strip() 
-    Strlist = list()
+    Hexlist = list()
     asciiVals = list()
     finalAsciiVals = list()
     strSplitList = str.split() 
@@ -16,26 +15,22 @@ def encode(str) :
     #increasing the ascii values
     for i in asciiVals:
         i = i + 2 * asciiVals.index(i)
-        if i in bad_codes:
-            i += 1  # Skip to next valid code
         finalAsciiVals.append(i)
     # converting to final char val
     for i in finalAsciiVals:
-        newStr = chr(i) 
-        Strlist.append(newStr)
-    Strlist.reverse() # reverse for better encode
-    finalStr = salt.join(Strlist)
-    return finalStr 
-
+        Hexlist.append(hex(i))
+    Hexlist.reverse()
+    Str = salt.join(Hexlist)
+    return Str
 # decode programe
 def decode(str) :
-    strSplitLIst = [x for x in str.split(salt) if x]  # removes empty elements
+    strSplitLIst = str.split(salt) # removes empty elements
     asciiVals = [] 
     finalStrList = []
     strSplitLIst.reverse()
     for newElm in strSplitLIst:
-        ascival = ord(newElm)
-        asciiVals.append(ascival)
+        intval = int(newElm , 16)
+        asciiVals.append(intval)
     for i in asciiVals:
         i = i - 2 * asciiVals.index(i)
         strPart = chr(i)
