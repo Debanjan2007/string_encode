@@ -27,6 +27,9 @@ def decode(str) :
     strSplitLIst = str.split(salt) # removes empty elements
     asciiVals = [] 
     finalStrList = []
+    for elm in strSplitLIst:
+        if elm == salt :
+           strSplitLIst.pop(elm)
     strSplitLIst.reverse()
     for newElm in strSplitLIst:
         intval = int(newElm , 16)
